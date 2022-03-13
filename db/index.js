@@ -69,15 +69,18 @@ addRole(role) {
             ?
         `, role
     )
+} 
+
+addEmployee(employee) {
+    return this.connection.promise().query(
+        `
+        INSERT INTO
+            employee
+        SET
+            ?
+        `, employee
+    )
 }
-
-//other things to view go here!
-
-
-
-
-
-
 
 
 };

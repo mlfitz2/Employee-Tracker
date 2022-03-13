@@ -32,7 +32,9 @@ async function mainMenu() {
         case 'Add Department':
             return addDepartment();
         case 'Add Role':
-            return addDepartment();
+            return addRole();
+        case 'Add Employee':
+            return addEmployee();
     }
 }
 
@@ -67,6 +69,60 @@ async function addDepartment() {
     mainMenu();
 }
 
-//See mockup to make function for each of the options
+async function addRole() {
+    const role = await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'title',
+            message: 'What is the title of the role?'
+        },
+        {
+            type: 'input',
+            name: 'salary',
+            message: 'What is the salary of this role?'
+        },
+        {
+            type: 'list',
+            name: 'department',
+            message: 'Which department does this role support?',
+            choices: []
+        }
+    ])
+    await DB.addRole(role);
+    console.log('New role has been successfully added!')
+    mainMenu();
+}
+
+async function addEmployee() {
+    const employee = await inquirer.prompt([
+        {
+            type: 'input', 
+            name: 'first_name',
+            message: 'What is the first name of the employee?'
+        },
+        {
+            type: 'input',
+            name: 'last_name',
+            message: 'What is the last name of the employee?'
+        },
+        {
+            type: 'list', 
+            name: 'role',
+            message: 'What is the role of this employee?',
+            choices: []
+        },
+        {
+            type: 'list',
+            name: 'manager',
+            message: 'Who is the manager of this employee?',
+            choices: []
+        }
+    ])
+    await DB.addEmployee(employee);
+    console.log('New employee has been successfully added!');
+    mainMenu();
+}
+
+
 
 mainMenu();
