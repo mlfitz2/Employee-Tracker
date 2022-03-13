@@ -70,6 +70,7 @@ async function addDepartment() {
 }
 
 async function addRole() {
+    const [departments] = await DB.viewAllDepartments();
     const role = await inquirer.prompt([
         {
             type: 'input',
@@ -83,9 +84,9 @@ async function addRole() {
         },
         {
             type: 'list',
-            name: 'department',
+            name: 'department_id',
             message: 'Which department does this role support?',
-            choices: []
+            choices: departments.map(department => ({...department, value: department.id}))
         }
     ])
     await DB.addRole(role);
@@ -94,6 +95,7 @@ async function addRole() {
 }
 
 async function addEmployee() {
+    const [[roles], [employees]] = await Promise.all([DB.viewAllRoles(), DB.viewAllEmployees()]);
     const employee = await inquirer.prompt([
         {
             type: 'input', 
@@ -107,15 +109,15 @@ async function addEmployee() {
         },
         {
             type: 'list', 
-            name: 'role',
+            name: 'role_id',
             message: 'What is the role of this employee?',
-            choices: []
+            choices: roles.map(role => ({...role, value: role.id, name: role.title}))
         },
         {
             type: 'list',
-            name: 'manager',
+            name: 'manager_id',
             message: 'Who is the manager of this employee?',
-            choices: []
+            choices: employees.map(employee => ({...employee, value: employee.id, name: `${employee.first_name} ${employee.last_name} `}))
         }
     ])
     await DB.addEmployee(employee);
