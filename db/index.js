@@ -60,6 +60,17 @@ addDepartment(department) {
     )
 }
 
+addRole(role) {
+    return this.connection.promise().query(
+        `
+        INSERT INTO
+            role
+        SET
+            ?
+        `, role
+    )
+}
+
 //other things to view go here!
 
 

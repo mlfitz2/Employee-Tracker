@@ -31,6 +31,8 @@ async function mainMenu() {
             return viewAllEmployees();
         case 'Add Department':
             return addDepartment();
+        case 'Add Role':
+            return addDepartment();
     }
 }
 
