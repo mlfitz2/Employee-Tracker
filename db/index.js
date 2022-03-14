@@ -87,4 +87,4 @@ addEmployee(employee) {
 
 module.exports = new DB(connection);
 
-//view all depts, view all roles, view all employees, add dept, add role, add employee, update employee's role
+
